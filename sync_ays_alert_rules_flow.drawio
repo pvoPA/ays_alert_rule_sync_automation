@@ -1,0 +1,118 @@
+<mxfile host="app.diagrams.net" modified="2023-04-27T19:03:19.160Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" etag="LcqifJ8ZoTbxpcC6cOWk" version="21.2.2" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="1242" dy="796" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="WIyWlLk6GJQsqaUBKTNV-3" target="4zc_Fvv1J7IszgD6JNqr-0" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-3" value="Alert Rule Automation Script for AYS &lt;br&gt;runs daily" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="50" y="30" width="210" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8CjWTbToK_fdJIFmofo6-7" target="8CjWTbToK_fdJIFmofo6-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8CjWTbToK_fdJIFmofo6-7" value="Parse the RQL query for UNIQUE_ATTRIBUTE" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="77.5" y="200" width="155" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8CjWTbToK_fdJIFmofo6-9" target="4zc_Fvv1J7IszgD6JNqr-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8CjWTbToK_fdJIFmofo6-9" value="Get existing Alert Rules in Prisma" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="77.5" y="280" width="155" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="8CjWTbToK_fdJIFmofo6-19" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8CjWTbToK_fdJIFmofo6-25" target="8CjWTbToK_fdJIFmofo6-18" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="270" y="817.5" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8CjWTbToK_fdJIFmofo6-20" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="8CjWTbToK_fdJIFmofo6-19" vertex="1" connectable="0">
+          <mxGeometry x="-0.0286" y="1" relative="1" as="geometry">
+            <mxPoint x="3" y="-11" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8CjWTbToK_fdJIFmofo6-18" value="Do nothing" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="294" y="660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="8CjWTbToK_fdJIFmofo6-39" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="8CjWTbToK_fdJIFmofo6-25" target="4zc_Fvv1J7IszgD6JNqr-19" edge="1">
+          <mxGeometry x="-0.0075" relative="1" as="geometry">
+            <mxPoint x="155" y="810" as="targetPoint" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="8CjWTbToK_fdJIFmofo6-25" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;Does an Alert Rule Exist for the UNIQUE_ATTRIBUTE value?&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="75.25" y="610" width="160" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="4zc_Fvv1J7IszgD6JNqr-0" target="8CjWTbToK_fdJIFmofo6-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-0" value="RQL_QUERY sent to Prisma" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="77.5" y="120" width="155" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="4zc_Fvv1J7IszgD6JNqr-5" target="4zc_Fvv1J7IszgD6JNqr-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-5" value="Parse alert rules prefixed with AUTOMATION_PREFIX" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="73.75" y="350" width="162.5" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="4zc_Fvv1J7IszgD6JNqr-8" target="4zc_Fvv1J7IszgD6JNqr-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-8" value="Get all Policies and parse Policies with POLICY_*_FILTER" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="56.879999999999995" y="430" width="196.25" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="4zc_Fvv1J7IszgD6JNqr-12" target="8CjWTbToK_fdJIFmofo6-25" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-12" value="Get all Account Groups and parse Account Groups matching ACCOUNT_GROUP_FILTER" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="51.879999999999995" y="510" width="206.25" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-18" value="&lt;div style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(86, 156, 214);&quot;&gt;POLICY_TYPE_FILTER&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;=[&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(206, 145, 120);&quot;&gt;&quot;config&quot;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;]&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(86, 156, 214);&quot;&gt;POLICY_SUB_TYPE_FILTER&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;=[[&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(206, 145, 120);&quot;&gt;&quot;run&quot;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;],[&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(206, 145, 120);&quot;&gt;&quot;run&quot;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(206, 145, 120);&quot;&gt;&quot;build&quot;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;]]&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(86, 156, 214);&quot;&gt;POLICY_SEVERITY_FILTER&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;=[&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(206, 145, 120);&quot;&gt;&quot;high&quot;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;,&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(206, 145, 120);&quot;&gt;&quot;critical&quot;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;]&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(86, 156, 214);&quot;&gt;ACCOUNT_GROUP_FILTER&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;=[&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(206, 145, 120);&quot;&gt;&quot;Azure Tenant Group&quot;&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;]&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(86, 156, 214);&quot;&gt;AUTOMATION_PREFIX&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(206, 145, 120);&quot;&gt;&quot;AutoGeneratedAYS&quot;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(86, 156, 214);&quot;&gt;RQL_QUERY&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(206, 145, 120);&quot;&gt;&quot;config from cloud.resource where cloud.type = &#39;azure&#39;&quot;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212); font-family: Menlo, Monaco, &amp;quot;Courier New&amp;quot;, monospace; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(86, 156, 214);&quot;&gt;UNIQUE_ATTRIBUTE&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(212, 212, 212);&quot;&gt;=&lt;/span&gt;&lt;span style=&quot;border-color: var(--border-color); color: rgb(206, 145, 120);&quot;&gt;&quot;AYSSupportGroup&quot;&lt;/span&gt;&lt;/div&gt;" style="text;whiteSpace=wrap;html=1;labelBackgroundColor=#1c1c1c;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="294" y="30" width="500" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="4zc_Fvv1J7IszgD6JNqr-19" target="8CjWTbToK_fdJIFmofo6-25" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="480" y="835" />
+              <mxPoint x="480" y="610" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-23" value="For each UNIQUE_ATTRIBUTE value&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;returned from RQL_QUERY" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="4zc_Fvv1J7IszgD6JNqr-22" vertex="1" connectable="0">
+          <mxGeometry x="-0.3454" y="-4" relative="1" as="geometry">
+            <mxPoint x="6" y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="4zc_Fvv1J7IszgD6JNqr-19" target="4zc_Fvv1J7IszgD6JNqr-26" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="156.875" y="930" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-19" value="Create the Alert Rule" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="53.74999999999999" y="800" width="206.25" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-29" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="4zc_Fvv1J7IszgD6JNqr-26" target="4zc_Fvv1J7IszgD6JNqr-28" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-31" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" source="4zc_Fvv1J7IszgD6JNqr-26" target="4zc_Fvv1J7IszgD6JNqr-30" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-32" value="No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="4zc_Fvv1J7IszgD6JNqr-31" vertex="1" connectable="0">
+          <mxGeometry x="0.44" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-26" value="&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(251, 251, 251); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;Does a UNIQUER_ATTRIBUTE value no longer exist for Alert Rules?&lt;/span&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="77.5" y="910" width="160" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-28" value="Delete the Alert Rules" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="294" y="960" width="146" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4zc_Fvv1J7IszgD6JNqr-30" value="Script Done" style="rounded=1;whiteSpace=wrap;html=1;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
+          <mxGeometry x="97.5" y="1100" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
