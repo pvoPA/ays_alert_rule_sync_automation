@@ -6,6 +6,48 @@ This repository includes the scripts for syncing alert rules in Prisma and Docke
 
 * Python 3.10
 * Docker
+* Azure Subscription
+* Azure Functions Core Tools
+* Azurite V3 Extension
+
+## Azure
+
+### Deployment
+
+* Click on the `Azure` tab in the Activity Bar of VS Code.
+* Under the `Resources` tab, `Sign in to Azure...`
+* After signing in, click the `+` symbol next to `Resources` tab.
+* Create a function app with the following configurations,
+  * Python v2 Programming Model
+  * Python 3.10
+  * Name of the Function
+  * Cloud Region for the Function
+* Under the `Workspace` tab, Deploy the `Local Project` to Azure pointing to the newly created function app.
+* Add the following environment variable to the new function app in Azure under `Configuration`
+  * `AzureWebJobsFeatureFlags` = `EnableWorkerIndexing` 
+* You can configure the environment variables 1 of 2 ways,
+  * Renaming `.env.template` to `.env`
+  * Adding all the variables in `.env.template` to `Application Settings` in Azure.
+
+
+### Testing Azure Function
+
+* Make sure you have the `Azurite V3 extension` installed in VS Code.
+* Hit `F1` key to open the `VS Code Command Palette`.
+* Run the `Azurite: Start` command to begin the emulator for local Azure function testing.
+* Hit `F5` with `azure-function/function_app.py` to run the function locally.
+* Choose the `Azure Icon` in the VS Code Activity Bar.
+* In the `Workspace` area, expand `Local Project > Functions`.
+* Right click `AlertSyncAutomationFunction` and click `Execute Function Now...`
+* Send the request and view the logs in terminal and response from VS Code.
+  * The business logic is ran asynchronously, VS Code will return a response before the alert sync automation is done running be sure to check the logs for errors.
+
+### Helpful Links
+
+* [Create a function in Azure with Python using VS Code](https://learn.microsoft.com/en-us/azure/azure-functions/create-first-function-vs-code-python?pivots=python-mode-decorators)
+* [Create a function in Azure to run on a schedule](https://learn.microsoft.com/en-us/azure/azure-functions/functions-create-scheduled-function)
+* [Updating Environment Variables for the function app](https://learn.microsoft.com/en-us/azure/azure-functions/functions-how-to-use-azure-function-app-settings?tabs=portal)
+* [CRON Job Expressions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer?pivots=programming-language-csharp&tabs=python-v2%2Cin-process#ncrontab-expressions)
 
 ## Docker
 
