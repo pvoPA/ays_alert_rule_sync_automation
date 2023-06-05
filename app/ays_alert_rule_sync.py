@@ -73,7 +73,8 @@ def main(data="", context=""):
     account_group_filters = json.loads(os.getenv("ACCOUNT_GROUP_FILTER"))
 
     # lower case the filters for proper comparison
-    policy_type_filter = [policy_type.lower() for policy_type in policy_type_filters]
+    policy_type_filter = [policy_type.lower()
+                          for policy_type in policy_type_filters]
 
     policy_sub_type_filter = [
         [policy_sub_type.lower() for policy_sub_type in filter]
@@ -105,7 +106,8 @@ def main(data="", context=""):
     ##########################################################################
     # Parse the RQL for a unique tag
 
-    logger.info("Parsing RQL query response for %s in the tags", unique_attribute)
+    logger.info("Parsing RQL query response for %s in the tags",
+                unique_attribute)
 
     tag_list = list()
 
@@ -121,7 +123,8 @@ def main(data="", context=""):
     unique_tags = list(set(tag_list))
 
     logger.info(
-        "Found %i unique tags that match %s", len(unique_tags), unique_attribute
+        "Found %i unique tags that match %s", len(
+            unique_tags), unique_attribute
     )
 
     ###########################################################################
@@ -200,7 +203,8 @@ def main(data="", context=""):
                 if str(account_group["name"]).lower() in account_group_filter:
                     account_group_ids.append(account_group["id"])
 
-                    account_group_filter.remove(str(account_group["name"]).lower())
+                    account_group_filter.remove(
+                        str(account_group["name"]).lower())
     else:
         logger.error(
             "Expected API Status Code: %d,\n\tGot %s instead.", 200, status_code
@@ -253,7 +257,8 @@ def main(data="", context=""):
             )
 
             if status_code == 200:
-                logger.info("Successfully created the Alert Rule %s", alert_rule_name)
+                logger.info(
+                    "Successfully created the Alert Rule %s", alert_rule_name)
             else:
                 logger.error(
                     "Expected API Status Code: %d,\n\tGot %s instead.", 200, status_code
