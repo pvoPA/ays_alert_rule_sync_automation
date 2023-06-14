@@ -37,13 +37,15 @@ Note:
 
 import os
 import json
-from helpers import generate_prisma_token
+import ast
+from helpers import prisma_login
 from helpers import prisma_rql_query
 from helpers import prisma_get_alert_rules
 from helpers import prisma_create_alert_rule
 from helpers import prisma_get_policies
 from helpers import prisma_get_account_groups
 from helpers import prisma_delete_alert_rule
+from helpers import prisma_get_integrations
 from helpers import logger
 
 
@@ -58,7 +60,6 @@ def main(data="", context=""):
     Returns:
         None
     """
-
     ###########################################################################
     # local variables
     prisma_access_key = os.getenv("ACCESS_KEY")
@@ -70,11 +71,13 @@ def main(data="", context=""):
     policy_type_filters = json.loads(os.getenv("POLICY_TYPE_FILTER"))
     policy_sub_type_filters = json.loads(os.getenv("POLICY_SUB_TYPE_FILTER"))
     policy_severity_filters = json.loads(os.getenv("POLICY_SEVERITY_FILTER"))
+    policy_cloud_filters = json.loads(os.getenv("POLICY_CLOUDTYPE_FILTER"))
     account_group_filters = json.loads(os.getenv("ACCOUNT_GROUP_FILTER"))
+    webhook_name = os.getenv("WEBHOOK_NAME")
+    auto_remediate_alerts = ast.literal_eval(os.getenv("AUTO_REMEDIATE"))
 
     # lower case the filters for proper comparison
-    policy_type_filter = [policy_type.lower()
-                          for policy_type in policy_type_filters]
+    policy_type_filter = [policy_type.lower() for policy_type in policy_type_filters]
 
     policy_sub_type_filter = [
         [policy_sub_type.lower() for policy_sub_type in filter]
@@ -89,13 +92,23 @@ def main(data="", context=""):
         account_group.lower() for account_group in account_group_filters
     ]
 
+    policy_cloud_filter = [cloud_type.lower() for cloud_type in policy_cloud_filters]
+
     try:
         rql_limit = int(os.getenv("RQL_LIMIT"))
     except ValueError:
         rql_limit = None
 
-    prisma_token = generate_prisma_token(prisma_access_key, prisma_secret_key)
+    prisma_response, status_code = prisma_login(prisma_access_key, prisma_secret_key)
 
+    if status_code == 200:
+        prisma_token = prisma_response["token"]
+        prisma_tenant_id = prisma_response["customerNames"][0]["prismaId"]
+
+    else:
+        logger.error(
+            "Expected API Status Code: %d,\n\tGot %s instead.", 200, status_code
+        )
     ###########################################################################
     # RQL query through Prisma.
 
@@ -106,8 +119,7 @@ def main(data="", context=""):
     ##########################################################################
     # Parse the RQL for a unique tag
 
-    logger.info("Parsing RQL query response for %s in the tags",
-                unique_attribute)
+    logger.info("Parsing RQL query response for %s in the tags", unique_attribute)
 
     tag_list = list()
 
@@ -123,31 +135,40 @@ def main(data="", context=""):
     unique_tags = list(set(tag_list))
 
     logger.info(
-        "Found %i unique tags that match %s", len(
-            unique_tags), unique_attribute
+        "Found %i unique tags that match %s", len(unique_tags), unique_attribute
     )
 
     ###########################################################################
     #   Get existing alert rules in Prisma
 
-    alert_rules = prisma_get_alert_rules(prisma_token)
+    alert_rules, status_code = prisma_get_alert_rules(prisma_token)
 
     ###########################################################################
     #   Parse the alert rules prepended with
     #       the automation prefix indicating automated alert rules only.
 
-    logger.info("Parsing alert rules prefixed with %s", automation_prefix)
+    if status_code == 200:
+        logger.info("Parsing alert rules prefixed with %s", automation_prefix)
 
-    auto_generated_alert_rule_tags = dict()
+        auto_generated_alert_rule_tags = dict()
 
-    for alert_rule in alert_rules:
-        if str(alert_rule["name"]).startswith(automation_prefix):
-            keys = [k for k in alert_rule["target"]["tags"]]
-            tags = {key["key"]: key["values"] for key in keys}
-            if unique_attribute in tags:
-                auto_generated_alert_rule_tags.update(
-                    {tags[unique_attribute][0]: alert_rule}
-                )
+        for alert_rule in alert_rules:
+            if str(alert_rule["name"]).startswith(automation_prefix):
+                keys = [k for k in alert_rule["target"]["tags"]]
+                tags = {key["key"]: key["values"] for key in keys}
+                if unique_attribute in tags:
+                    auto_generated_alert_rule_tags.update(
+                        {tags[unique_attribute][0]: alert_rule}
+                    )
+    elif status_code == 401:
+        logger.error("Prisma token timed out, generating a new one and continuing.")
+
+        prisma_token = prisma_login(prisma_access_key, prisma_secret_key)
+
+    else:
+        logger.error(
+            "Expected API Status Code: %d,\n\tGot %s instead.", 200, status_code
+        )
 
     ###########################################################################
     #   Grab all policies
@@ -155,6 +176,7 @@ def main(data="", context=""):
     #           Type = "config"
     #           SubType = ["run"] or ["run","build"]
     #           Severity in ["high","critical"]
+    #           Cloud Type in ["Azure"]
 
     policy_response, status_code = prisma_get_policies(
         prisma_token, detailed_compliance_mappings=False
@@ -164,9 +186,25 @@ def main(data="", context=""):
         policy_ids = list()
 
         for policy in policy_response:
-            matching_type = False
-            matching_sub_type = False
-            matching_severity = False
+            # if any of the filters are empty, this assumes no filtering
+            if policy_type_filter:
+                matching_type = False
+            else:
+                matching_type = True
+            if policy_sub_type_filter:
+                matching_sub_type = False
+            else:
+                matching_sub_type = True
+            if policy_severity_filter:
+                matching_severity = False
+            else:
+                matching_severity = True
+            if policy_cloud_filter:
+                matching_cloud_type = False
+            else:
+                matching_cloud_type = True
+
+            # check the policy for the filter
 
             if str(policy["policyType"]).lower() in policy_type_filter:
                 matching_type = True
@@ -181,8 +219,21 @@ def main(data="", context=""):
             if str(policy["severity"]).lower() in policy_severity_filter:
                 matching_severity = True
 
-            if matching_type and matching_sub_type and matching_severity:
+            if str(policy["cloudType"]).lower() in policy_cloud_filter:
+                matching_cloud_type = True
+
+            if (
+                matching_type
+                and matching_sub_type
+                and matching_severity
+                and matching_cloud_type
+            ):
                 policy_ids.append(policy["policyId"])
+    elif status_code == 401:
+        logger.error("Prisma token timed out, generating a new one and continuing.")
+
+        prisma_token = prisma_login(prisma_access_key, prisma_secret_key)
+
     else:
         logger.error(
             "Expected API Status Code: %d,\n\tGot %s instead.", 200, status_code
@@ -203,13 +254,48 @@ def main(data="", context=""):
                 if str(account_group["name"]).lower() in account_group_filter:
                     account_group_ids.append(account_group["id"])
 
-                    account_group_filter.remove(
-                        str(account_group["name"]).lower())
+                    account_group_filter.remove(str(account_group["name"]).lower())
+    elif status_code == 401:
+        logger.error("Prisma token timed out, generating a new one and continuing.")
+
+        prisma_token = prisma_login(prisma_access_key, prisma_secret_key)
     else:
         logger.error(
             "Expected API Status Code: %d,\n\tGot %s instead.", 200, status_code
         )
 
+    ###########################################################################
+    #   Grab the webhook ID matching webhook name
+    webhook_id = ""
+    webhook_found = False
+
+    integrations_response, status_code = prisma_get_integrations(
+        prisma_token, prisma_tenant_id
+    )
+
+    if status_code == 200:
+        for integration in integrations_response:
+            if str(integration["name"]).lower() == webhook_name:
+                webhook_id = integration["id"]
+                webhook_found = True
+                break
+
+        if not webhook_found:
+            logger.error(
+                "Unable to locate template ID for %s,"
+                " please check that this integration exists and try again.",
+                webhook_name,
+            )
+
+            raise ValueError
+    elif status_code == 401:
+        logger.error("Prisma token timed out, generating a new one and continuing.")
+
+        prisma_token = prisma_login(prisma_access_key, prisma_secret_key)
+    else:
+        logger.error(
+            "Expected API Status Code: %d,\n\tGot %s instead.", 200, status_code
+        )
     ###########################################################################
     # Alert sync automation
 
@@ -234,35 +320,49 @@ def main(data="", context=""):
             alert_rule_notification_config = [
                 {
                     "enabled": True,
-                    "recipients": [f"{unique_tag}"],
-                    "type": "email",
-                    "detailedReport": False,
-                    "frequency": "as_it_happens",
+                    "recipients": [webhook_id],
+                    "templateId": None,
+                    "type": "webhook",
                 }
             ]
+
+            target_resource_list = {"reason": "", "enabled": False, "ids": []}
             delay_notification_ms = 300000
             notify_on_open = True
+            allow_auto_remediate = auto_remediate_alerts
 
             # Create the Alert Rule
             create_alert_rule_response, status_code = prisma_create_alert_rule(
                 prisma_token,
                 alert_rule_notification_config=alert_rule_notification_config,
                 delay_notification_ms=delay_notification_ms,
+                target_resource_list=target_resource_list,
                 notify_on_open=notify_on_open,
                 alert_rule_name=alert_rule_name,
                 description=description,
                 policies=policy_ids,
                 account_groups=account_group_ids,
                 tags=tags,
+                allow_auto_remediate=allow_auto_remediate,
             )
 
             if status_code == 200:
-                logger.info(
-                    "Successfully created the Alert Rule %s", alert_rule_name)
+                logger.info("Successfully created the Alert Rule %s", alert_rule_name)
+
+                # logger.info(create_alert_rule_response)
+            elif status_code == 401:
+                logger.error(
+                    "Prisma token timed out, generating a new one and continuing."
+                )
+
+                prisma_token = prisma_login(prisma_access_key, prisma_secret_key)
             else:
                 logger.error(
                     "Expected API Status Code: %d,\n\tGot %s instead.", 200, status_code
                 )
+
+        # for testing
+        break
 
     if not auto_generated_alert_rule_tags:
         logger.info(
@@ -283,6 +383,10 @@ def main(data="", context=""):
                 "Successfully deleted Alert Rule %s",
                 auto_generated_alert_rule[1]["name"],
             )
+        elif status_code == 401:
+            logger.error("Prisma token timed out, generating a new one and continuing.")
+
+            prisma_token = prisma_login(prisma_access_key, prisma_secret_key)
         else:
             logger.error(
                 "Expected API Status Code: %d,\n\tGot %s instead.", 204, status_code
