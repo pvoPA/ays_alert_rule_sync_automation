@@ -316,7 +316,12 @@ def main(data="", context=""):
             #       one will be created.
             alert_rule_name = f"{automation_prefix}-{unique_tag}"
             description = f"Alert rule for {unique_attribute}"
-            tags = [{"key": unique_attribute, "values": [unique_tag]}]
+
+            if unique_tag:
+                tags = [{"key": unique_attribute, "values": [unique_tag]}]
+            else:
+                tags = [{"key": unique_attribute, "values": ["N/A"]}]
+
             alert_rule_notification_config = [
                 {
                     "enabled": True,

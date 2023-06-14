@@ -248,7 +248,7 @@ def test_function(req: func.HttpRequest) -> func.HttpResponse:
 
     if status_code == 200:
         for integration in integrations_response:
-            if str(integration["name"]).lower() == webhook_name:
+            if str(integration["name"]).lower() == str(webhook_name).lower():
                 webhook_id = integration["id"]
                 webhook_found = True
                 break
@@ -332,6 +332,7 @@ def test_function(req: func.HttpRequest) -> func.HttpResponse:
                 logger.error(
                     "Expected API Status Code: %d,\n\tGot %s instead.", 200, status_code
                 )
+        break  # for testing
 
     if not auto_generated_alert_rule_tags:
         logger.info(
