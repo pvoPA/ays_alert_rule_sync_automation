@@ -332,7 +332,6 @@ def test_function(req: func.HttpRequest) -> func.HttpResponse:
                 logger.error(
                     "Expected API Status Code: %d,\n\tGot %s instead.", 200, status_code
                 )
-        break  # for testing
 
     if not auto_generated_alert_rule_tags:
         logger.info(

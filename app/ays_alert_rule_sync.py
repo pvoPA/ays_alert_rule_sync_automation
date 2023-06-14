@@ -275,7 +275,7 @@ def main(data="", context=""):
 
     if status_code == 200:
         for integration in integrations_response:
-            if str(integration["name"]).lower() == webhook_name:
+            if str(integration["name"]).lower() == str(webhook_name).lower():
                 webhook_id = integration["id"]
                 webhook_found = True
                 break
@@ -316,12 +316,7 @@ def main(data="", context=""):
             #       one will be created.
             alert_rule_name = f"{automation_prefix}-{unique_tag}"
             description = f"Alert rule for {unique_attribute}"
-
-            if unique_tag:
-                tags = [{"key": unique_attribute, "values": [unique_tag]}]
-            else:
-                tags = [{"key": unique_attribute, "values": ["N/A"]}]
-
+            tags = [{"key": unique_attribute, "values": [unique_tag]}]
             alert_rule_notification_config = [
                 {
                     "enabled": True,
