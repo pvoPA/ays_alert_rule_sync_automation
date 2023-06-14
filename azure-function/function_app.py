@@ -362,6 +362,8 @@ def test_function(req: func.HttpRequest) -> func.HttpResponse:
                 "Expected API Status Code: %d,\n\tGot %s instead.", 204, status_code
             )
 
+    return func.HttpResponse("This HTTP triggered function executed successfully.")
+
 
 # @app.function_name(name="AYSAlertSyncAutomationFunction")
 # @app.schedule(schedule=CRON_SCHEDULE, arg_name="timer", run_on_startup=False, use_monitor=True)
