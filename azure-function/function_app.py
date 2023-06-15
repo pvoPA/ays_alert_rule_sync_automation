@@ -1,16 +1,20 @@
 import os
 import json
 import ast
+import logging
+import azure.functions as func
 from helpers import prisma_login
+from helpers import prisma_get_integrations
 from helpers import prisma_rql_query
 from helpers import prisma_get_alert_rules
 from helpers import prisma_create_alert_rule
 from helpers import prisma_get_policies
 from helpers import prisma_get_account_groups
 from helpers import prisma_delete_alert_rule
-from helpers import prisma_get_integrations
-import azure.functions as func
-import logging as logger
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 app = func.FunctionApp()
 CRON_SCHEDULE = os.getenv("ALERT_RULE_SYNC_CRON_SCHEDULE")
@@ -20,9 +24,13 @@ CRON_SCHEDULE = os.getenv("ALERT_RULE_SYNC_CRON_SCHEDULE")
 # Get started by running the following code to create a function using a HTTP trigger.
 
 
-@app.function_name(name="AYSAlertSyncAutomationFunction")
-@app.route(route="hello")
-def test_function(req: func.HttpRequest) -> func.HttpResponse:
+@app.function_name(name="AYSAlertSyncAutomationFunctionTimerTrigger")
+@app.schedule(
+    schedule=CRON_SCHEDULE, arg_name="timer", run_on_startup=False, use_monitor=True
+)
+def ays_alert_rule_sync_automation_timer_trigger(
+    timer: func.TimerRequest,
+):
     """
     Run the alert rule sync automation.
 
@@ -321,7 +329,6 @@ def test_function(req: func.HttpRequest) -> func.HttpResponse:
 
             if status_code == 200:
                 logger.info("Successfully created the Alert Rule %s", alert_rule_name)
-
             elif status_code == 401:
                 logger.error(
                     "Prisma token timed out, generating a new one and continuing."
@@ -356,15 +363,7 @@ def test_function(req: func.HttpRequest) -> func.HttpResponse:
             logger.error("Prisma token timed out, generating a new one and continuing.")
 
             prisma_token = prisma_login(prisma_access_key, prisma_secret_key)
-
         else:
             logger.error(
                 "Expected API Status Code: %d,\n\tGot %s instead.", 204, status_code
             )
-
-    return func.HttpResponse("This HTTP triggered function executed successfully.")
-
-
-# @app.function_name(name="AYSAlertSyncAutomationFunction")
-# @app.schedule(schedule=CRON_SCHEDULE, arg_name="timer", run_on_startup=False, use_monitor=True)
-# def alert_rule_sync_automation(timer: func.TimerRequest):
